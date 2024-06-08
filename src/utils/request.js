@@ -10,7 +10,11 @@ const instance = axios.create({baseURL})
 //添加响应拦截器
 instance.interceptors.response.use(
     result=>{
-        return result.data;
+        if (result.data.code === 0) {
+            return result.data;
+        }
+        alert(result.data.message || '服务异常，请联系管理员');
+        return Promise.resolve(result.data);
     },
     err=>{
         alert('服务异常');
