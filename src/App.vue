@@ -1,10 +1,8 @@
 <script setup>
-  import login from '@/views/Login.vue'
 </script>
 
 <template>
-  <login></login>
-  hello world
+  <router-view></router-view>
 </template>
 
 <style scoped>

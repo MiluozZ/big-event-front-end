@@ -1,10 +1,11 @@
 <script setup>
 import {registerService, loginService} from "@/api/user";
+import {useRouter} from 'vue-router'
 import { User, Lock } from '@element-plus/icons-vue'
 import { ref } from 'vue'
 //控制注册与登录表单的显示， 默认显示注册
-
 const isRegister = ref(false)
+const router = useRouter()
 const registerData = ref({
   username: '',
   password: '',
@@ -56,6 +57,7 @@ const login = async () => {
   alert('登陆成功')
   //记录token
   //跳转页面
+  router.push('/')
 }
 </script>
 
