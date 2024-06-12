@@ -52,10 +52,14 @@ const cleanRegisterData = () => {
   registerData.value.rePassword = ''
 }
 
+import {useTokenStore} from "@/store/token.js";
+const tokenStore = useTokenStore();
+
 const login = async () => {
-  const token = await loginService(registerData.value);
+  const result = await loginService(registerData.value);
   alert('登陆成功')
   //记录token
+  tokenStore.setToken(result.data)
   //跳转页面
   router.push('/')
 }
