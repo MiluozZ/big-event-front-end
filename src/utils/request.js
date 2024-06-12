@@ -7,6 +7,7 @@ const baseURL = '/api';
 const instance = axios.create({baseURL})
 
 import {useTokenStore} from "@/store/token.js";
+import router from "../router";
 //添加请求拦截器
 instance.interceptors.request.use(config => {
     const tokenStore = useTokenStore();
@@ -28,7 +29,12 @@ instance.interceptors.response.use(
         return Promise.resolve(result.data);
     },
     err=>{
-        alert('服务异常');
+        if (err.response && err.response.status === 401) {
+            alert("请先登陆");
+            router.push('/login');
+        } else {
+            alert('服务异常');
+        }
         return Promise.reject(err);//异步的状态转化成失败的状态
     }
 )
