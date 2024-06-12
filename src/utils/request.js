@@ -24,7 +24,6 @@ instance.interceptors.response.use(
         if (result.data.code === 0) {
             return result.data;
         }
-        console.log('result:', JSON.stringify(result) );
         alert(result.data.message || '服务异常，请联系管理员');
         return Promise.resolve(result.data);
     },

@@ -13,9 +13,9 @@ export const articleDetailService = (id) => {
 }
 
 export const articleEditService = (articleData) => {
-    return request.put('article', articleData);
+    return request.put('/article', articleData);
 }
 
 export const articleDeleteService = (id) => {
-    return request.delete('article?id=' + id);
+    return request.delete('/article?id=' + id);
 }

@@ -3,7 +3,7 @@ import {
   Edit,
   Delete
 } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import {ElMessage, ElMessageBox} from 'element-plus'
 import {ref} from "vue";
 import {
   addCategoryService,
@@ -61,6 +61,33 @@ const updateCategory = async () => {
   dialogVisible.value = false
   await getAllCategoryList()
 }
+// 删除文章分类
+const deleteCategory = async (data) => {
+  ElMessageBox.confirm(
+      '你确认删除该分类信息吗？',
+      '温馨提示',
+      {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  )
+      .then(async () => {
+        //用户点击了确认
+        let categoryId = parseInt(data.id, 10)
+        let result = await categoryDeleteService(categoryId)
+        ElMessage.success(result.message?result.message:'删除成功')
+        //再次调用getAllCategory，获取所有文章分类
+        await getAllCategoryList()
+      })
+      .catch(() => {
+        //用户点击了取消
+        ElMessage({
+          type: 'info',
+          message: '取消删除',
+        })
+      })
+}
 
 
 </script>
@@ -81,7 +108,7 @@ const updateCategory = async () => {
       <el-table-column label="操作" width="100">
         <template #default="{ row }">
           <el-button :icon="Edit" circle plain type="primary" @click="updateCategoryEcho(row)"></el-button>
-          <el-button :icon="Delete" circle plain type="danger"></el-button>
+          <el-button :icon="Delete" circle plain type="danger" @click="deleteCategory(row)"></el-button>
         </template>
       </el-table-column>
       <template #empty>

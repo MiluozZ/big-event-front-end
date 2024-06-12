@@ -13,9 +13,9 @@ export const categoryDetailService = (id) => {
 }
 
 export const categoryEditService = (categoryData) => {
-    return request.put('category', categoryData);
+    return request.put('/category', categoryData);
 }
 
 export const categoryDeleteService = (id) => {
-    return request.delete('category?id=' + id);
+    return request.delete('/category?id=' + id);
 }
